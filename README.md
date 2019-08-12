@@ -2,3 +2,5 @@
 How to create maps of elected senators share of votes in each municipality
 
 Comments in pt-br
+
+Required packages (beyond regular ones): "ElectionsBR" and "geobr"

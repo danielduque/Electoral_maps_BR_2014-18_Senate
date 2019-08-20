@@ -1,7 +1,7 @@
 rm(list = ls())
 
-# Os 15 primeiros pacotes s„o os que sempre dou "library", sÛ para garantir
-# Os ˙ltimos 6 s„o necess·rios para o loop
+# Os 15 primeiros pacotes s√£o os que sempre dou "library", s√≥ para garantir
+# Os √∫ltimos 6 s√£o necess√°rios para o loop
 library(bit64)
 library(data.table)
 library(descr)
@@ -27,7 +27,7 @@ library(RColorBrewer)
 library(stringi)
 library(electionsBR)
 
-# … preciso definir qualquer endereÁo, para salvar os mapas
+# √â preciso definir qualquer endere√ßo, para salvar os mapas
 setwd("C:/Users/DaniellaBritto/Desktop/R/CLP/Eleicoes")
 
 # Planilha auxiliar
@@ -66,11 +66,12 @@ for (x in 1:nrow(UFs)){
   Senadores1 <- Senadores1 %>% mutate(Percentual=SUMCand/SUMMun*100)
 
   
-  # Usar pacote geobr para pegar mapa dos MunicÌpios por Estado  
+  # Usar pacote geobr para pegar mapa dos Munic√≠pios por Estado  
   UF <- read_municipality(code_muni=UFs$Codigo_UF[x], year=2010)
   
   UF <- UF %>% mutate(NOME_MUNICIPIO = toupper(name_muni),
-                      NOME_MUNICIPIO = stri_trans_general(NOME_MUNICIPIO, "Latin-ASCII"))
+                      NOME_MUNICIPIO = stri_trans_general(NOME_MUNICIPIO, "Latin-ASCII"),
+                     NOME_MUNICIPIO = as.character(NOME_MUNICIPIO))
   
   SPSen1 <- left_join(UF,Senadores1,by="NOME_MUNICIPIO")
   
@@ -78,9 +79,10 @@ for (x in 1:nrow(UFs)){
   plot1 <-   ggplot() + geom_sf(data=SPSen1, aes(fill= Percentual),
                                 color = "grey", size = 0.01) +
     scale_fill_distiller(palette = "Blues", 
-                         breaks = pretty_breaks(n = 10))+
+                         breaks = pretty_breaks(n = 10),
+                         direction=1)+
     guides(fill = guide_legend(reverse = TRUE))+
-    geom_sf_text(data=SPSen2,aes(label = paste(paste(NOME_MUNICIPIO,round(Percentual,digits=0),sep=" "),"%",sep="")), colour = "black",size=0.75)+
+    geom_sf_text(data=SPSen2,aes(label = paste(paste(NOME_MUNICIPIO,round(Percentual,digits=0),sep=" "),"%",sep="")), colour = "black",size=0.65)+
     labs(x="",y="",title=paste(UFs$`Senador 2`[x]," ",SPSen1$SIGLA_PARTIDO[2],"/",SPSen1$abbrev_state[2],sep=""))+
     coord_sf(datum = NA)
   

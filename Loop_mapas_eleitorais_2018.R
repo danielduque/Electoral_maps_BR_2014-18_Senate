@@ -88,9 +88,10 @@ SenadoresDef2 <- Senadores %>%
 plot1 <-   ggplot() + geom_sf(data=SPSen1, aes(fill= Percentual),
                      color = "grey", size = 0.01) +
     scale_fill_distiller(palette = "Blues", 
-                         breaks = pretty_breaks(n = 10))+
+                         breaks = pretty_breaks(n = 10),
+                         direction=1)+
     guides(fill = guide_legend(reverse = TRUE))+
-  geom_sf_text(data=SPSen2,aes(label = paste(paste(NOME_MUNICIPIO,round(Percentual,digits=0),sep=" "),"%",sep="")), colour = "black",size=0.75)+
+  geom_sf_text(data=SPSen2,aes(label = paste(paste(NOME_MUNICIPIO,round(Percentual,digits=0),sep=" "),"%",sep="")), colour = "black",size=0.65)+
   labs(x="",y="",title=paste(UFs$`Senador 2`[x]," ",SPSen1$SIGLA_PARTIDO[2],"/",SPSen1$abbrev_state[2],sep=""))+
   coord_sf(datum = NA)
 
@@ -99,9 +100,10 @@ plot1 <-   ggplot() + geom_sf(data=SPSen1, aes(fill= Percentual),
   plot2 <-   ggplot() + geom_sf(data=SPSen2, aes(fill= Percentual),
                                 color = "grey", size = 0.01) +
     scale_fill_distiller(palette = "Blues", 
-                         breaks = pretty_breaks(n = 10))+
+                         breaks = pretty_breaks(n = 10),
+                         direction=1)+
     guides(fill = guide_legend(reverse = TRUE))+ 
-    geom_sf_text(data=SPSen2,aes(label = paste(paste(NOME_MUNICIPIO,round(Percentual,digits=0),sep=" "),"%",sep="")), colour = "black",size=0.75)+
+    geom_sf_text(data=SPSen2,aes(label = paste(paste(NOME_MUNICIPIO,round(Percentual,digits=0),sep=" "),"%",sep="")), colour = "black",size=0.65)+
     labs(x="",y="",title=paste(UFs$`Senador 2`[x]," ",SPSen2$SIGLA_PARTIDO[2],"/",SPSen2$abbrev_state[2],sep=""))+
     coord_sf(datum = NA)
   
